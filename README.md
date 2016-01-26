@@ -1,43 +1,45 @@
 # docker-phpvirtualbox
 
+This is a fork of [clue/phpvirtualbox](https://hub.docker.com/r/clue/phpvirtualbox/), because it is not very up to date.
+
+## phpVirtualBox
+
 [phpVirtualBox](http://sourceforge.net/projects/phpvirtualbox/) is a modern web interface that allows
 you to control remote VirtualBox instances - mirroring the VirtualBox GUI.
-This is a [docker](https://www.docker.io) image that eases setup.
-
-## About phpVirtualBox
-
-> *From [the official description](http://sourceforge.net/projects/phpvirtualbox/):*
-
-An open source, AJAX implementation of the VirtualBox user interface written in PHP.
-As a modern web interface, it allows you to access and control remote VirtualBox instances.
-phpVirtualBox is designed to allow users to administer VirtualBox in a headless
-environment - mirroring the VirtualBox GUI through its web interface.
 
 ![](http://a.fsdn.com/con/app/proj/phpvirtualbox/screenshots/phpvb1.png)
 
 ## Usage
-
-Using this image for the first time will start a download automatically.
-Further runs will be immediate, as the image will be cached locally.
-
 This image provides the phpVirtualBox web interface that communicates with any
 number of VirtualBox installations on your computers.
 
-Internally, the phpVirtualBox web interface communicates with each VirtualBox installation through the
-`vboxwebsrv` program that is installed as part of VirtualBox.
-So for every computer connected to the phpVirtualbox instance, we're going to use a minimal container
-that eases exposing the `vboxwebsrv`.
+Internally, the phpVirtualBox web interface communicates with each VirtualBox installation through the `vboxwebsrv` program that is installed as part of VirtualBox.
 
-
-You can now point your webbrowser to this URL:
+The container is started with following command:
 
 ```
-http://vbox.jotunheim.de
+docker run --name vbox_http --restart=always \
+    -p 80:80 \
+    -e ID_PORT_18083_TCP=ServerIP:PORT \
+    -e ID_NAME=serverName \
+    -e ID_USER=vboxUser \
+    -e ID_PW='vboxUserPassword' \
+    -d jazzdd/phpvirtualbox
 ```
 
-This is a rather common setup following docker's conventions:
+* `-p {OutsidePort}:80` - will bind the webserver to the given host port
+* `-d jazzdd/phpvirtualbox` - the name of this docker image
+* `-e ID_NAME` - name of the vbox server
+* `-e ID_PORT_18083_TCP` - ip/hostname and port of the vbox server
+* `-e ID_USER` - user name of the user in the vbox group
+* `-e ID_PW` - passowrd of this user
 
-* `-d` will run a detached session running in the background
-* `-p {OutsidePort}:80` will bind the webserver to the given outside port
-* `--link {ContainerName}:{DisplayName}` links a `vboxwebsrv` instance with the given {ContainerName} and exposes it under the visual {DisplayName}
-* `jazz/phpvirtualbox` the name of this docker image
+ID is an identifier to get all matching environment variables for one vbox server. So, it is possible to define more then one vbox server and manage it with one phpVirtualbox instance.
+
+An example would look as follows:
+```
+docker run --name vbox_http --restart=always -p 80:80 \
+    -e SRV1_PORT_18083_TCP=192.168.1.1:18083 -e SRV1_NAME=Server1 -e SRV1_USER=user1 -e SRV1_PW='test' \
+    -e SRV2_PORT_18083_TCP=192.168.1.2:18083 -e SRV2_NAME=Server2 -e SRV2_USER=user2 -e SRV2_PW='test' \
+    -d jazzdd/phpvirtualbox
+```
