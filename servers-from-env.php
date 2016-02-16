@@ -48,3 +48,17 @@ if (!$servers) {
 
 $config = '<?php return ' . var_export($servers, true) . ';';
 file_put_contents('/var/www/config-servers.php', $config);
+
+$config_overrides = array();
+foreach ($_SERVER as $key => $value) {
+    if (substr($key,0,7) === 'CONFIG_') { 
+	$name = substr($key,7);
+	if (strpos($value,',') !== false) {
+	    $config_overrides[$name] = split(',',$value);
+	} else {
+	    $config_overrides[$name] = $value;
+	}
+    }
+}
+
+file_put_contents('/var/www/config-override.php','<?php return ' . var_export($config_overrides, true) . ';' );

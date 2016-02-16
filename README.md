@@ -24,6 +24,7 @@ docker run --name vbox_http --restart=always \
     -e ID_NAME=serverName \
     -e ID_USER=vboxUser \
     -e ID_PW='vboxUserPassword' \
+    -e CONFIG_browserRestrictFolders="/home/vbox,/home/cd-images" \
     -d jazzdd/phpvirtualbox
 ```
 
@@ -32,7 +33,8 @@ docker run --name vbox_http --restart=always \
 * `-e ID_NAME` - name of the vbox server
 * `-e ID_PORT_18083_TCP` - ip/hostname and port of the vbox server
 * `-e ID_USER` - user name of the user in the vbox group
-* `-e ID_PW` - passowrd of this user
+* `-e ID_PW` - password of this user
+* `-e CONFIG_varName` - overrige default config value of varName, browserRestrictFolders is useful example. Coma-separated strings will be converted into array
 
 ID is an identifier to get all matching environment variables for one vbox server. So, it is possible to define more then one vbox server and manage it with one phpVirtualbox instance.
 

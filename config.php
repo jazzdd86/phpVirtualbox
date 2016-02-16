@@ -11,6 +11,10 @@ class phpVBoxConfig {
 public function __construct()
 {
     $this->servers = require __DIR__ . '/config-servers.php';
+    $overrides = require __DIR__.'/config-override.php';
+    foreach ($overrides as $key => $value) { 
+	$this->$key = $value;
+    }
 }
 
 /* Username / Password for system user that runs VirtualBox */
@@ -219,6 +223,7 @@ LPT support may or may not work for you.
 
 
 /* END SETTINGS  */
+
 
 
 }
