@@ -69,10 +69,12 @@ $ docker run --name vbox_http --restart=always \
     -e SRV1_PORT_18083_TCP=192.168.1.1:18083 -e SRV1_NAME=Server1 -e SRV1_USER=user1 -e SRV1_PW='test' \
     -e SRV2_PORT_18083_TCP=192.168.1.2:18083 -e SRV2_NAME=Server2 -e SRV2_USER=user2 -e SRV2_PW='test' \
     -e SRV1_CONF_browserRestrictFolders="/data,/home" \
-    -e CONF_browserRestrictFolders="/data" \
+    -e CONF_browserRestrictFolders="/data," \
     -d jazzdd/phpvirtualbox
 ```
 
 * 1. config for specific server with usage of vboxwebsrv image
 * 2. `-e SRV1_CONF_browserRestrictFolders="/data,/home"` - config for specific server with usage of environment variables
-* 3. `-e CONF_browserRestrictFolders="/data"` - global configuration - valid for all servers without local configuration parameter
+* 3. `-e CONF_browserRestrictFolders="/data,"` - global configuration - valid for all servers without local configuration parameter
+
+If an option requires an array but only one parameter is given enter a comma after the option, because an array is generated if there is an , character (see option 3).
