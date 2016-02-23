@@ -2,15 +2,15 @@ FROM alpine
 MAINTAINER Christian Gatzlaff <cgatzlaff@gmail.com>
 
 RUN apk add --no-cache bash nginx php-fpm php-cli php-json php-soap \
-	&& apk add --no-cache --virtual build-dependencies wget unzip \
-	&& wget --no-check-certificate https://sourceforge.net/projects/phpvirtualbox/files/latest/download -O phpvirtualbox.zip \
-	&& unzip phpvirtualbox.zip -d phpvirtualbox \
-	&& mkdir -p /var/www \
-	&& mv -v phpvirtualbox/*/* /var/www/ \
+    && apk add --no-cache --virtual build-dependencies wget unzip \
+    && wget --no-check-certificate https://sourceforge.net/projects/phpvirtualbox/files/latest/download -O phpvirtualbox.zip \
+    && unzip phpvirtualbox.zip -d phpvirtualbox \
+    && mkdir -p /var/www \
+    && mv -v phpvirtualbox/*/* /var/www/ \
     && chown nobody:nobody -R /var/www \
-	&& rm phpvirtualbox.zip \
-	&& rm phpvirtualbox/ -R \
-	&& apk del build-dependencies
+    && rm phpvirtualbox.zip \
+    && rm phpvirtualbox/ -R \
+    && apk del build-dependencies
 
 # config files
 COPY config.php /var/www/config.php
