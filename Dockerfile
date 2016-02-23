@@ -7,10 +7,12 @@ RUN apk add --no-cache bash nginx php-fpm php-cli php-json php-soap \
     && unzip phpvirtualbox.zip -d phpvirtualbox \
     && mkdir -p /var/www \
     && mv -v phpvirtualbox/*/* /var/www/ \
-    && chown nobody:nobody -R /var/www \
     && rm phpvirtualbox.zip \
     && rm phpvirtualbox/ -R \
-    && apk del build-dependencies
+    && apk del build-dependencies \
+    && echo "<?php return array(); ?>" > /var/www/config-servers.php \
+    && echo "<?php return array(); ?>" > /var/www/config-override.php \
+    && chown nobody:nobody -R /var/www
 
 # config files
 COPY config.php /var/www/config.php
