@@ -7,6 +7,7 @@ RUN apk add --no-cache bash nginx php-fpm php-cli php-json php-soap \
 	&& unzip phpvirtualbox.zip -d phpvirtualbox \
 	&& mkdir -p /var/www \
 	&& mv -v phpvirtualbox/*/* /var/www/ \
+    && chown nobody:nobody -R /var/www \
 	&& rm phpvirtualbox.zip \
 	&& rm phpvirtualbox/ -R \
 	&& apk del build-dependencies
@@ -15,10 +16,6 @@ RUN apk add --no-cache bash nginx php-fpm php-cli php-json php-soap \
 COPY config.php /var/www/config.php
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY servers-from-env.php /servers-from-env.php
-
-# dummy config-servers.php
-RUN echo "<?php return array(); ?>" > /var/www/config-servers.php \
-	&& chown nobody:nobody -R /var/www
 
 # expose only nginx HTTP port
 EXPOSE 80

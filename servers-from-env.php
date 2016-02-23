@@ -5,7 +5,7 @@ $config_overrides = array();
 
 // getting config overrides for all servers
 foreach ($_SERVER as $key => $value) {
-    preg_match('/(.*?)[_ENV*|_*]*CONF_(.+)/', $key, $matches);
+    preg_match('/(.*?)(?:_ENV_|_)?CONF_(.+)/', $key, $matches);
     if ($matches) {
         $value= (strpos($value, ',')) ? split(',',$value) : $value;
         $config_overrides[$matches[1]] = array($matches[2] => $value);
@@ -59,5 +59,7 @@ if (!$servers) {
 // put servers array to file
 file_put_contents('/var/www/config-servers.php', '<?php return ' . var_export($servers, true) . ';');
 
-// getting global config overrides
-file_put_contents('/var/www/config-override.php','<?php return ' . var_export($config_overrides[""], true) . ';' );
+if (array_key_exists("", $config_overrides)) {
+    // getting global config overrides
+    file_put_contents('/var/www/config-override.php','<?php return ' . var_export($config_overrides[""], true) . ';' );
+}
