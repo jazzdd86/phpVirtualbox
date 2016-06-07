@@ -1,7 +1,7 @@
 FROM alpine
 MAINTAINER Christian Gatzlaff <cgatzlaff@gmail.com>
 
-RUN apk add --no-cache bash nginx php-fpm php-cli php-json php-soap \
+RUN apk add --no-cache bash nginx php5-fpm php5-cli php5-json php5-soap \
     && apk add --no-cache --virtual build-dependencies wget unzip \
     && wget --no-check-certificate https://sourceforge.net/projects/phpvirtualbox/files/latest/download -O phpvirtualbox.zip \
     && unzip phpvirtualbox.zip -d phpvirtualbox \
