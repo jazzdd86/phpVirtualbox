@@ -26,4 +26,4 @@ COPY servers-from-env.php /servers-from-env.php
 EXPOSE 80
 
 # write linked instances to config, then monitor all services
-CMD php /servers-from-env.php && php-fpm && nginx
+CMD php5 /servers-from-env.php && php-fpm5 && nginx
