@@ -3,7 +3,7 @@ MAINTAINER Christian Gatzlaff <cgatzlaff@gmail.com>
 
 RUN apk add --no-cache bash nginx php5-fpm php5-cli php5-json php5-soap \
     && apk add --no-cache --virtual build-dependencies wget unzip \
-    && wget --no-check-certificate https://github.com/phpvirtualbox/phpvirtualbox/archive/5.2-0.zip -O phpvirtualbox.zip \
+    && wget --no-check-certificate https://github.com/phpvirtualbox/phpvirtualbox/archive/5.2-1.zip -O phpvirtualbox.zip \
     && unzip phpvirtualbox.zip -d phpvirtualbox \
     && mkdir -p /var/www \
     && mv -v phpvirtualbox/*/* /var/www/ \
