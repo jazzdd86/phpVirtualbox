@@ -16,8 +16,8 @@ echo 'Exposing the following linked server instances:' . PHP_EOL;
 
 // getting servers from linked vboxwebsrv containers or environment variables
 foreach ($_SERVER as $key => $value) {
-    if (substr($key, -15) === '_PORT_18083_TCP') {
-        $prefix = substr($key, 0, -15);
+    if (substr($key, -9) === '_HOSTPORT') {
+        $prefix = substr($key, 0, -9);
 
         $name = getenv($prefix . '_NAME');
         $pos = strrpos($name, '/');
@@ -44,15 +44,13 @@ foreach ($_SERVER as $key => $value) {
             'name' => $name,
             'username' => $username,
             'password' => $password,
-            'authMaster' => true,
             'location' => $location),
             (array_key_exists($prefix, $config_overrides)) ? $config_overrides[$prefix] : array());
     }
 }
 // check if there are any servers
 if (!$servers) {
-    echo 'Error: No vboxwebsrv instance linked? Use "--link containername:myname"' . PHP_EOL;
-    echo 'Use environment variables if no vboxwebsrv containers are used!';
+    echo 'Use environment variables to configure the correct connection!';
     exit(1);
 }
 

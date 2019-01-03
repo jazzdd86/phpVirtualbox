@@ -63,7 +63,7 @@ class phpVBoxConfig {
     */
 
     // Disable authentication
-    var $noAuth = true;
+    # var $noAuth = true;
 
     // Host / ip to use for console connections
     #var $consoleHost = '192.168.1.40';
