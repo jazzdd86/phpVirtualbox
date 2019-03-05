@@ -1,7 +1,7 @@
 FROM alpine
 MAINTAINER Christian Gatzlaff <cgatzlaff@gmail.com>
 
-RUN apk add --no-cache bash nginx php5-fpm php5-cli php5-json php5-soap \
+RUN apk update && apk add --no-cache bash nginx php7-fpm php7-cli php7-common php7-json php7-soap php7-simplexml php7-session \
     && apk add --no-cache --virtual build-dependencies wget unzip \
     && wget --no-check-certificate https://github.com/phpvirtualbox/phpvirtualbox/archive/5.2-1.zip -O phpvirtualbox.zip \
     && unzip phpvirtualbox.zip -d phpvirtualbox \
@@ -12,7 +12,7 @@ RUN apk add --no-cache bash nginx php5-fpm php5-cli php5-json php5-soap \
     && apk del build-dependencies \
     && echo "<?php return array(); ?>" > /var/www/config-servers.php \
     && echo "<?php return array(); ?>" > /var/www/config-override.php \
-    && chown nobody:nobody -R /var/www 
+    && chown nobody:nobody -R /var/www
 
 # config files
 COPY config.php /var/www/config.php
@@ -23,4 +23,4 @@ COPY servers-from-env.php /servers-from-env.php
 EXPOSE 80
 
 # write linked instances to config, then monitor all services
-CMD php5 /servers-from-env.php && php-fpm5 && nginx
+CMD php7 /servers-from-env.php && php-fpm7 && nginx
