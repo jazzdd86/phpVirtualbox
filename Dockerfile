@@ -1,7 +1,7 @@
 FROM alpine
 MAINTAINER Christian Gatzlaff <cgatzlaff@gmail.com>
 
-ARG PHP_VIRTUAL_BOX_RELEASE=5.2-1
+ARG PHP_VIRTUAL_BOX_RELEASE=develop
 
 RUN apk update && apk add --no-cache bash nginx php7-fpm php7-cli php7-common php7-json php7-soap php7-simplexml php7-session \
     && apk add --no-cache --virtual build-dependencies wget unzip \
