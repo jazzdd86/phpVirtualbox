@@ -1,6 +1,6 @@
 # docker-phpvirtualbox
 
-The master of the master branch supports only VirtualBox up to version 5.2. Later versions of VirtualBox are supported by the branch VBOX6.x - this will take the developement branch of [phpVirtualBox](https://github.com/phpvirtualbox/phpvirtualbox) and includes it into this docker image.
+Changed the phpVirtualBox Repo to [phpVirtualBox by BartekSz95](https://github.com/BartekSz95/phpvirtualbox/tree/main) as this includes the support for php 8.1 and VirtualBox 7.x.
 
 ## phpVirtualBox
 

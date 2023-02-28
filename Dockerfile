@@ -1,11 +1,11 @@
 FROM alpine
-MAINTAINER Christian Gatzlaff <cgatzlaff@gmail.com>
+LABEL maintainer = "Christian Gatzlaff <cgatzlaff@gmail.com>"
 
-ARG PHP_VIRTUAL_BOX_RELEASE=develop
+ARG PHP_VIRTUAL_BOX_RELEASE=main
 
-RUN apk update && apk add --no-cache bash nginx php7-fpm php7-cli php7-common php7-json php7-soap php7-simplexml php7-session \
+RUN apk update && apk add --no-cache bash nginx php81-fpm php81-cli php81-common php81-json php81-soap php81-simplexml php81-session \
     && apk add --no-cache --virtual build-dependencies wget unzip \
-    && wget --no-check-certificate https://github.com/phpvirtualbox/phpvirtualbox/archive/${PHP_VIRTUAL_BOX_RELEASE}.zip -O phpvirtualbox.zip \
+    && wget --no-check-certificate https://github.com/BartekSz95/phpvirtualbox/archive/${PHP_VIRTUAL_BOX_RELEASE}.zip -O phpvirtualbox.zip \
     && unzip phpvirtualbox.zip -d phpvirtualbox \
     && mkdir -p /var/www \
     && mv -v phpvirtualbox/*/* /var/www/ \
@@ -25,4 +25,4 @@ COPY servers-from-env.php /servers-from-env.php
 EXPOSE 80
 
 # write linked instances to config, then monitor all services
-CMD php7 /servers-from-env.php && php-fpm7 && nginx
+CMD php81 /servers-from-env.php && php-fpm81 && nginx
