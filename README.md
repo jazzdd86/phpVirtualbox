@@ -1,10 +1,10 @@
 # docker-phpvirtualbox
 
-The master of the master branch supports only VirtualBox up to version 5.2. Later versions of VirtualBox are supported by the branch VBOX6.x - this will take the developement branch of phpVirtualBox and includes it into this docker image.
+The master of the master branch supports only VirtualBox up to version 5.2. Later versions of VirtualBox are supported by the branch VBOX6.x - this will take the developement branch of [phpVirtualBox](https://github.com/phpvirtualbox/phpvirtualbox) and includes it into this docker image.
 
 ## phpVirtualBox
 
-[phpVirtualBox](http://sourceforge.net/projects/phpvirtualbox/) is a modern web interface that allows you to control remote VirtualBox instances - mirroring the VirtualBox GUI.
+[phpVirtualBox](https://github.com/phpvirtualbox/phpvirtualbox) is a modern web interface that allows you to control remote VirtualBox instances - mirroring the VirtualBox GUI.
 
 ![](http://a.fsdn.com/con/app/proj/phpvirtualbox/screenshots/phpvb1.png)
 
